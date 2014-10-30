@@ -2,6 +2,10 @@
 
 You'll need [Oblong's Greenhouse SDK](http://greenhouse.oblong.com/) to run this.
 
+## Building
+
+Assuming Greenhouse is installed per usual, run `make`.
+
 ## Use
 
 Edit [robot.cpp](robot.cpp). In the setup function, after the new robot is created, you can
