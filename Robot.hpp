@@ -68,4 +68,8 @@ inline void InitBackground () {
   auto bg = new Image("images/bg.png");
   bg -> SlapOnFeld ();
   bg -> SetSize(4.0 * bg -> Size ());
-}  
+
+  HideNeedlePoints ();
+}
+
+
