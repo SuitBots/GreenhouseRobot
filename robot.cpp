@@ -10,11 +10,11 @@ void MainTask (Robot *robot) {
 
             if (ir_power > 240) { // close enough
                 robot->SetMotors (0, 0);
-                robot->Quit ();
+                break;
             } else {
                 float speed = 20.0;
-                float left = 10.0;  // ??
-                float right = 10.0; // ??
+                float left = speed / 2.0;  // ??
+                float right = speed / 2.0; //?
 
                 robot->SetMotors (left, right);
             }
@@ -23,7 +23,7 @@ void MainTask (Robot *robot) {
                     " and power " + ToStr (ir_power));
         } else {
             INFORM ("Can not see beacon.");
-            robot->Quit ();
+            break;
         }
         robot->Wait (0.1);
     }

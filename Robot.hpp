@@ -62,7 +62,7 @@ private:
         this->SetTranslationHard (start_loc);
         this->RotateLike (Feld ());
         quit = false;
-        th = std::thread ([this]() { task (this); });
+        th = std::thread ([this]() { task (this); this -> Quit (); });
     }
 
     Vect IRSensorLoc () {
@@ -139,7 +139,7 @@ public:
             return -1;
         }
 
-        return 1 + (int)(angle + 120) / 26.66;
+        return 1 + (int)(angle + 120.0) / 26.66;
     };
 
     virtual int IRPower () {
