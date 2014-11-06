@@ -1,17 +1,30 @@
 #include "Robot.hpp"
 
-void Setup() {
-  InitBackground ();
-  auto robot = new Robot ();
+bool CanSeeBeacon (Robot *robot) { return -1 < robot->IRPower (); }
 
-  robot -> SetMotors (10, 10);
-  robot -> Wait (1.5);
-  robot -> SetMotors (-20, 20);
-  robot -> Wait (2.51);
-  robot -> SetMotors (10, 10);
-  robot -> Wait (3.0);
-  robot -> SetMotors (-10, -10);
-  robot -> Wait (1.5);
-  robot -> SetMotors (20, -20);
-  robot -> Wait (2.51);
+void MainTask (Robot *robot) {
+    while (!robot->HasQuit ()) {
+        if (CanSeeBeacon (robot)) {
+            float ir_dir = robot->IRDirection ();
+            float ir_power = robot->IRPower ();
+
+            if (ir_power > 240) { // close enough
+                robot->SetMotors (0, 0);
+                robot->Quit ();
+            } else {
+                float speed = 20.0;
+                float left = 10.0;  // ??
+                float right = 10.0; // ??
+
+                robot->SetMotors (left, right);
+            }
+
+            INFORM ("The IR Beacon is at location " + ToStr (ir_dir) +
+                    " and power " + ToStr (ir_power));
+        } else {
+            INFORM ("Can not see beacon.");
+            robot->Quit ();
+        }
+        robot->Wait (0.1);
+    }
 }
